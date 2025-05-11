@@ -6,6 +6,9 @@ import pandas as pd
 from datetime import datetime
 from typing import Dict, List, Optional, Union, Any
 
+import requests
+
+from config import Config
 logger = logging.getLogger("recommendation-api")
 
 
@@ -37,8 +40,28 @@ class RecommenderModel:
         """
         try:
             if not os.path.exists(self.model_path):
-                logger.error(f"Không tìm thấy file model: {self.model_path}")
-                return False
+                logger.warning(f"Không tìm thấy file model: {self.model_path}")
+
+                # Tải từ Google Drive nếu GDRIVE_MODEL_ID có
+                if Config.GDRIVE_MODEL_ID:
+                    try:
+                        logger.info("→ Đang tải model từ Google Drive...")
+                        gdrive_url = f"https://drive.google.com/uc?export=download&id={Config.GDRIVE_MODEL_ID}"
+                        response = requests.get(gdrive_url)
+                        if response.status_code == 200:
+                            os.makedirs(os.path.dirname(self.model_path), exist_ok=True)
+                            with open(self.model_path, "wb") as f:
+                                f.write(response.content)
+                            logger.info("✓ Đã tải model từ Google Drive.")
+                        else:
+                            logger.error(f"Lỗi khi tải model từ Google Drive: {response.status_code}")
+                            return False
+                    except Exception as e:
+                        logger.exception(f"Không thể tải model từ Google Drive: {str(e)}")
+                        return False
+                else:
+                    logger.error("Chưa cấu hình GDRIVE_MODEL_ID.")
+                    return False
 
             logger.info(f"Đang tải model từ {self.model_path}...")
             with open(self.model_path, 'rb') as f:

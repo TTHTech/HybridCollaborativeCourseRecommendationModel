@@ -9,6 +9,11 @@ class Config:
     # Model Config
     MODEL_PATH = os.environ.get("MODEL_PATH", "models/recommendation_model.pkl")
 
+    # Google Drive model file ID (example link:
+    # https://drive.google.com/file/d/1ZYD-r8Tock-a4kSL5WDRY4LTJJh4Pdog/view?usp=sharing)
+    # → ID là phần "1ZYD-r8Tock-a4kSL5WDRY4LTJJh4Pdog"
+    GDRIVE_MODEL_ID = os.environ.get("GDRIVE_MODEL_ID", "1ZYD-r8Tock-a4kSL5WDRY4LTJJh4Pdog")
+
     # Cache Config
     CACHE_TTL = int(os.environ.get("CACHE_TTL", 3600))  # 1 giờ
     MAX_CACHE_SIZE = int(os.environ.get("MAX_CACHE_SIZE", 1000))
