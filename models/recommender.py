@@ -52,7 +52,7 @@ class RecommenderModel:
             self.mine_indices = self.model_data.get('mine_course_indices')
 
             # Kiểm tra tất cả các thành phần cần thiết đã được tải
-            if not all([self.model, self.dataset, self.course_features]):
+            if self.model is None or self.dataset is None or self.course_features is None:
                 logger.error("Model không có đủ các thành phần cần thiết")
                 return False
 

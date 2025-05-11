@@ -14,8 +14,6 @@ ENV/
 *.swp
 *.swo
 
-# Model files (tùy chọn - nếu bạn không muốn đẩy file model lên)
-models/*.pkl
 
 # Logs
 *.log
@@ -33,3 +31,5 @@ instance/
 # OS specific
 .DS_Store
 Thumbs.db
+
+models/recommendation_model.pkl

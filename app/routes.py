@@ -67,7 +67,7 @@ def register_routes(app):
             "model_info": model_info.get("metadata", {})
         })
 
-    @app.route("/api/recommendations")
+    @app.route("/api/recommendations/mine")
     def api_recommendations():
         """Endpoint đề xuất khóa học"""
         # Kiểm tra model đã được tải chưa
