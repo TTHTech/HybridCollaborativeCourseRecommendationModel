@@ -1,1 +1,1 @@
-# ModelRecommendation
+# HybridCollaborativeCourseRecommendationModel
